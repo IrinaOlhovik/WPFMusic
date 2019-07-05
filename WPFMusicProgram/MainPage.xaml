@@ -1,0 +1,123 @@
+﻿<Page x:Class="WPFMusicProgram.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:fluentWpf="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+      xmlns:local="clr-namespace:WPFMusicProgram"
+      xmlns:views="clr-namespace:WPFMusicProgram.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="1233"
+      d:DesignWidth="2012.5"
+      Title="MainPage">
+    <Page.Resources>
+        <Style x:Name="ButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="82"/>
+            <Setter Property="Width" Value="346"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background" Value="PeachPuff"/>
+        </Style>
+        <Style x:Key="{x:Type CheckBox}"
+       TargetType="{x:Type CheckBox}">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <!--<DataTemplate x:Key="CustomItemTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0" />
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <CheckBox IsThreeState="False" Grid.Row="0" Grid.Column="2" Content="SELECT ALL" Margin="0,10,489,10"/>
+
+                <CheckBox IsThreeState="False" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="2,0"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="PlaylistName" />
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="Count" />
+                
+            </Grid>
+        </DataTemplate>-->
+    </Page.Resources>
+    <Grid fluentWpf:PointerTracker.Enabled="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="82" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+            <Button>Playlists</Button>
+            <Button Content="Features"/>
+            <Button Content="Tracks"/>
+            <Button Content="Artists"/>
+            <Button Content="Albums"/>
+        </StackPanel>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TabControl Background="WhiteSmoke" >
+                <!--ContentTemplate="{StaticResource CustomItemTemplate}" SelectionChanged="TabControl_SelectionChanged"-->
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Background" Value="White"/>
+                    </Style>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        ContentSource="Header"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Width" Value="70"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter TargetName="Panel" Property="Background" Value="Pink" />
+                                            <Setter Property="Foreground" Value="White" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="Width" Value="70"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter TargetName="Panel" Property="Background" Value="White" />
+                                            <Setter Property="Foreground" Value="Black" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                
+                <TabItem>
+                    <TabItem.Header>PLAYLISTS</TabItem.Header>
+                    <views:PlaylistUserControl x:Name="PlaylistUserControl" Loaded="PlaylistView_Loaded"/>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>FEATURES</TabItem.Header>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>TRACKS</TabItem.Header>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>ALBUMS</TabItem.Header>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>ARTISTS</TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Page>
