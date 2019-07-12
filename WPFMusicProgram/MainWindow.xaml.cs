@@ -23,42 +23,18 @@ namespace WPFMusicProgram
     /// </summary>
     public partial class MainWindow : Window
     {
+        public delegate void ChangeUSEvent(bool Show);
         public MainWindow()
         {
             InitializeComponent();
-            Parse.ParseGoogle();
-           // List.ItemsSource = MainClassWithLists.Playlists.Select(p => string.Format("{0},{1},{2}",p.Id, p.PlaylistName,p.Tracks.Count));
+            playlistUserControl.SetChangeEvent(ChangeUS);
+            songUserControl.SetChangeEvent(ChangeUS);
         }
-
-        //private void List_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-     
-        //}
-        //public void ListItemSource(string id)
-        //{
-        //    var playlist = MainClassWithLists.Playlists.SingleOrDefault(p => p.Id == id);
-        //    if(playlist!=null)
-        //    List.ItemsSource = playlist.Tracks
-        //        .Select(t => string.Format("{0},{1},{2}", t.Id, t.TrackName, t.Duration));
-        //}
-
-        //private void List_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    ListItemSource(List.SelectedItem.ToString().Split(',')[0]);
-        //}
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    List.ItemsSource = MainClassWithLists.Playlists.Select(p => string.Format("{0},{1},{2}", p.Id, p.PlaylistName, p.Tracks.Count));
-        //}
-        private void PlaylistView_Loaded(object sender, RoutedEventArgs e)
+        public void ChangeUS(bool Show)
         {
-            PlaylistViewModel playlistViewModel =
-               new PlaylistViewModel();
-            playlistViewModel.LoadPlaylists();
-
-            PlaylistUserControl.DataContext = playlistViewModel;
+            songUserControl.UpdateSongs();
+            songUserControl.Visibility = Show ? Visibility.Visible : Visibility.Hidden;
+            playlistUserControl.Visibility = Show ? Visibility.Hidden : Visibility.Visible;
         }
-
     }
 }

@@ -17,35 +17,35 @@ using WPFMusicProgram.ViewModel;
 
 namespace WPFMusicProgram.View
 {
-    /// <summary>   
-    /// Interaction logic for PlaylistUserControl.xaml
+    /// <summary>
+    /// Interaction logic for SongUserControl.xaml
     /// </summary>
-    public partial class PlaylistUserControl : UserControl
+    public partial class SongUserControl : UserControl
     {
-        private readonly PlaylistViewModel model = new PlaylistViewModel();
+        private readonly SongViewModel model;
         public MainWindow.ChangeUSEvent changeUS = null;
-        public PlaylistUserControl()
+        public SongUserControl()
         {
-            Parse.ParseGoogle();
+            model = new SongViewModel();
             this.DataContext = model;
-            
             InitializeComponent();
         }
-
+        public void UpdateSongs()
+        {
+            model.LoadSongs();
+        }
         internal void SetChangeEvent(MainWindow.ChangeUSEvent changeUS)
         {
             this.changeUS = changeUS;
         }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Parse.AddSelectedPlaylistTracks((Playlist)ListBoxPlaylist.SelectedItem);
-            changeUS?.Invoke(true);
+            changeUS?.Invoke(false);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            foreach (var item in model.Playlists)
+            foreach (var item in model.Tracks)
             {
                 item.IsSelected = true;
             }
@@ -53,7 +53,7 @@ namespace WPFMusicProgram.View
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            foreach (var item in model.Playlists)
+            foreach (var item in model.Tracks)
             {
                 item.IsSelected = false;
             }

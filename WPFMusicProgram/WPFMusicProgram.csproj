@@ -91,8 +91,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\BaseCommand.cs" />
+    <Compile Include="ViewModel\SongViewModel.cs" />
     <Compile Include="View\PlaylistUserControl.xaml.cs">
       <DependentUpon>PlaylistUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SongUserControl.xaml.cs">
+      <DependentUpon>SongUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
@@ -122,6 +127,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\PlaylistUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SongUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

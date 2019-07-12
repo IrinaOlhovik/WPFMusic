@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,13 +24,13 @@ namespace WPFMusicProgram.Model
             set { _playlistName = value; RaisePropertyChanged("PlaylistName"); }
         }
         private List<Track> _tracks;
-                
+
+
         public List<Track> Tracks
         {
             get { return _tracks; }
             set { _tracks = value; RaisePropertyChanged("Tracks"); }
         }
-        
-        
+
     }
 }

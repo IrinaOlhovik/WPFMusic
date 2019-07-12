@@ -4,13 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFMusicProgram"
+        xmlns:viewModels="clr-namespace:WPFMusicProgram.ViewModel"
         xmlns:views="clr-namespace:WPFMusicProgram.View"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="WPFMusicProgram.MainWindow"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <views:PlaylistUserControl x:Name="PlaylistUserControl" Loaded = "PlaylistView_Loaded"/>
-
-        <!--<ListBox x:Name="List" HorizontalAlignment="Left" Height="386" Margin="10,0,0,0" VerticalAlignment="Top" Width="644" RenderTransformOrigin="0.46,0.43" SelectionChanged="List_SelectionChanged" MouseDoubleClick="List_MouseDoubleClick"/>-->
-        <!--<Button Content="Button" HorizontalAlignment="Left" Margin="707,39,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>-->
+        <views:PlaylistUserControl x:Name="playlistUserControl"/>
+        <views:SongUserControl x:Name="songUserControl" Visibility="Hidden"/>
     </Grid>
 </Window>

@@ -7,6 +7,7 @@ using WPFMusicProgram.Model;
 using System.Net;
 using HtmlAgilityPack;
 using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace WPFMusicProgram
 {
@@ -25,6 +26,7 @@ namespace WPFMusicProgram
         }
         public static void ParseGoogle()
         {
+           
             HtmlDocument htmlSnippet = new HtmlDocument();
             string result;
             while (true)
@@ -56,6 +58,7 @@ namespace WPFMusicProgram
             htmlDocument.LoadHtml(result);
             Album album;
             Track track;
+            MainClassWithLists.Tracks = new ObservableCollection<Track>();
             foreach (HtmlNode song in htmlDocument.DocumentNode.SelectNodes(@"//tr[@class='KaLrad yZhPwb']"))
             {
                 string name = song.SelectSingleNode(@".//td[@class='sKniue WAjGKd']").InnerText;
@@ -76,6 +79,14 @@ namespace WPFMusicProgram
                 MainClassWithLists.Albums.Add(album);
                 MainClassWithLists.Tracks.Add(track);
                 list.Tracks.Add(track);
+            }
+        }
+        public static void AddSelectedPlaylistTracks(Playlist playlist)
+        {
+            MainClassWithLists.SelectedPlaylistTracks = new ObservableCollection<Track>();
+            foreach (var item in playlist.Tracks)
+            {
+                MainClassWithLists.SelectedPlaylistTracks.Add(item);
             }
         }
     }
