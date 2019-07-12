@@ -99,10 +99,6 @@
     <Compile Include="View\SongUserControl.xaml.cs">
       <DependentUpon>SongUserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,9 +112,6 @@
     <Compile Include="Model\Playlist.cs" />
     <Compile Include="Model\Track.cs" />
     <Compile Include="MainClassWithLists.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\ItemBase.cs" />
     <Compile Include="Parse.cs" />
     <Compile Include="ViewModel\PlaylistViewModels.cs" />
