@@ -31,6 +31,13 @@ namespace WPFMusicProgram.Model
             get { return _tracks; }
             set { _tracks = value; RaisePropertyChanged("Tracks"); }
         }
+        private List<Album> _albums;
+        public List<Album> Albums
+        {
+            get { return _albums; }
+            set { _albums = value; RaisePropertyChanged("Albums"); }
+        }
+
 
     }
 }

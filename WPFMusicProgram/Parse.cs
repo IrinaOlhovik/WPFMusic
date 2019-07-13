@@ -8,13 +8,15 @@ using System.Net;
 using HtmlAgilityPack;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace WPFMusicProgram
 {
     public class Parse
     {
         private static string rootUrl = @"https://play.google.com/";
-        private static string url = @"store/music/collection/cluster?clp=YhgKCHBsYXlsaXN0EAMaCgoIcGxheWxpc3Q%3D:S:ANO1ljJG2Xc&gsr=ChpiGAoIcGxheWxpc3QQAxoKCghwbGF5bGlzdA%3D%3D:S:ANO1ljLEfEM";
+        private static string url = @"store/music";
+        //collection/cluster?clp=YhgKCHBsYXlsaXN0EAMaCgoIcGxheWxpc3Q%3D:S:ANO1ljJG2Xc&gsr=ChpiGAoIcGxheWxpc3QQAxoKCghwbGF5bGlzdA%3D%3D:S:ANO1ljLEfEM";
         public static string GetUrl(string address)
         {
             WebClient webClient = new WebClient();
@@ -26,7 +28,125 @@ namespace WPFMusicProgram
         }
         public static void ParseGoogle()
         {
-           
+            HtmlDocument htmlSnippet = new HtmlDocument();
+            string result;
+            while (true)
+            {
+                htmlSnippet = GetHtmlDocument(rootUrl + url);
+                foreach (HtmlNode link in htmlSnippet.DocumentNode.SelectNodes(@"//div[@class='Ktdaqe  ']"))
+                {
+                    Playlist playlist = new Playlist()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Tracks = new List<Track>(),
+                        Albums = new List<Album>()
+                    };
+                    playlist.PlaylistName = link.SelectSingleNode(@".//h2[@class='sv0AUd bs3Xnd']").InnerText;
+                    HtmlNode htmlNode = link.SelectSingleNode(@".//div[@class='xwY9Zc']").FirstChild;
+                    string href = htmlNode.GetAttributeValue("href", "");
+                    ParseGoogleAlbums(ref playlist, href);
+                    MainClassWithLists.Playlists.Add(playlist);
+                }
+                break;
+            }
+        }
+
+        public static void ParseGoogleSongs(ref Playlist list, string href)
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            string result = GetUrl(href);
+            htmlDocument.LoadHtml(result);
+            Artist artist;
+            Track track;
+            foreach (HtmlNode song in htmlDocument.DocumentNode.SelectNodes(@"//div[@class='Vpfmgd']"))
+            {
+                string name = song.SelectSingleNode(@".//div[@class='WsMG1c nnK0zc']").InnerText;
+                string artistName = song.SelectSingleNode(@".//a[@class='mnKHRc']").FirstChild.InnerText;
+                string songPageHref = song.SelectSingleNode(@".//div[@class='b8cIId ReQCgd Q9MA7b']").FirstChild.GetAttributeValue("href", "");
+                HtmlDocument htmlDocumentSong = new HtmlDocument();
+                string resultSong = GetUrl(rootUrl + songPageHref);
+                htmlDocumentSong.LoadHtml(resultSong);
+                string duration = htmlDocumentSong.DocumentNode.SelectSingleNode(@"td[@class='KYddxf WAjGKd']").InnerText;
+                artist = new Artist()
+                {
+                    ArtistId = Guid.NewGuid().ToString(),
+                    ArtistName = artistName
+                };
+                track = new Track()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    TrackName = name,
+                    ArtistId = artist.ArtistId,
+                    Duration = duration
+                };
+                MainClassWithLists.Artists.Add(artist);
+                MainClassWithLists.Tracks.Add(track);
+                list.Tracks.Add(track);
+            }
+        }
+        public static void ParseGoogleAlbums(ref Playlist playlist, string href)
+        {
+            HtmlDocument htmlDocument = GetHtmlDocument(href);
+            Artist artist; Album album; Track track;
+            foreach (HtmlNode link in htmlDocument.DocumentNode.SelectNodes(@"//div[@class='card-content id-track-click id-track-impression']"))
+            {
+                string hrefAlbum = link.SelectSingleNode(@".//a[@class='card-click-target']").GetAttributeValue("href", "");
+                HtmlDocument htmlSnippset = GetHtmlDocument(rootUrl + hrefAlbum);
+                var htmlSongs = htmlSnippset.DocumentNode.SelectNodes(@"//tr[@class='KaLrad yZhPwb']");
+                
+                string artistName = htmlSnippset.DocumentNode.SelectSingleNode(@".//a[@class='hrTbp R8zArc']").InnerText;
+                artist = new Artist
+                {
+                    ArtistId = Guid.NewGuid().ToString(),
+                    ArtistName = artistName
+                };
+                MainClassWithLists.Artists.Add(artist);
+
+                ObservableCollection<Track> tempTracks = new ObservableCollection<Track>();
+                foreach (HtmlNode song in htmlSongs)
+                {
+                    string trackName = song.SelectSingleNode(".//td[@class='sKniue WAjGKd']").InnerText;
+                    string trackDuration = song.SelectSingleNode(".//td[@class='KYddxf WAjGKd']").InnerText;
+                    track = new Track
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        ArtistId = artist.ArtistId,
+                        Duration = trackDuration,
+                        TrackName = trackName
+                    };
+                    tempTracks.Add(track);
+                    MainClassWithLists.Tracks.Add(track);
+                }
+                
+                if (htmlSongs.Count > 1)
+                {
+                    string albummName = htmlSnippset.DocumentNode.SelectSingleNode(@".//h1[@class='AHFaub krcQId']").FirstChild.InnerText;
+                    album = new Album
+                    {
+                        AlbumId = Guid.NewGuid().ToString(),
+                        ArtistId = artist.ArtistId,
+                        AlbumName = albummName,
+                        Tracks = new ObservableCollection<Track>()
+                    };
+
+                    foreach (var item in tempTracks)
+                    {
+                        item.AlbumId = album.AlbumId;
+                    }
+
+                    album.Tracks.AddRange(tempTracks);
+                    playlist.Albums.Add(album);
+                    MainClassWithLists.Albums.Add(album);
+                }
+                else
+                {
+                    playlist.Tracks.AddRange(tempTracks);
+                }
+            }
+        }
+
+        public static void ParseGoogleSomePlaylists()
+        {
             HtmlDocument htmlSnippet = new HtmlDocument();
             string result;
             while (true)
@@ -44,21 +164,20 @@ namespace WPFMusicProgram
                     playlist.PlaylistName = link.SelectSingleNode(@".//div[@class='vU6FJ zC8lR']").InnerText;
                     HtmlNode htmlNode = link.SelectSingleNode(@".//a[@class='poRVub']");
                     string href = htmlNode.GetAttributeValue("href", "");
-                    ParseSongsGoogle(ref playlist, href);
+                    ParseGoogleSongs(ref playlist, href);
                     MainClassWithLists.Playlists.Add(playlist);
                 }
                 break;
             }
         }
 
-        public static void ParseSongsGoogle(ref Playlist list, string href)
+        public static void ParseSomeSongsGoogle(ref Playlist list, string href)
         {
             HtmlDocument htmlDocument = new HtmlDocument();
             string result = GetUrl(rootUrl + href);
             htmlDocument.LoadHtml(result);
             Album album;
             Track track;
-            MainClassWithLists.Tracks = new ObservableCollection<Track>();
             foreach (HtmlNode song in htmlDocument.DocumentNode.SelectNodes(@"//tr[@class='KaLrad yZhPwb']"))
             {
                 string name = song.SelectSingleNode(@".//td[@class='sKniue WAjGKd']").InnerText;
@@ -88,6 +207,13 @@ namespace WPFMusicProgram
             {
                 MainClassWithLists.SelectedPlaylistTracks.Add(item);
             }
+        }
+        public static HtmlDocument GetHtmlDocument(string href)
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            string result = GetUrl(href);
+            htmlDocument.LoadHtml(result);
+            return htmlDocument;
         }
     }
 }

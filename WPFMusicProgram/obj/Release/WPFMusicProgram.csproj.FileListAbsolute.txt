@@ -43,3 +43,4 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.c
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.csproj.CopyComplete
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.exe
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.pdb
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.csprojAssemblyReference.cache

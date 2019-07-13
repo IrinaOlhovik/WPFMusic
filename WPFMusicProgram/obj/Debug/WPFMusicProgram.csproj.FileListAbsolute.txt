@@ -31,7 +31,6 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\WPFMusicProgram.csp
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\WPFMusicProgram.csproj.CopyComplete
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\WPFMusicProgram.exe
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\WPFMusicProgram.pdb
-F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\MainPage.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\PlaylistUserControl.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\GeneratedInternalTypeHelper.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Debug\ControlzEx.dll
@@ -40,7 +39,6 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Debug\ControlzEx.pdb
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Debug\MahApps.Metro.pdb
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Debug\MahApps.Metro.xml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\App.baml
-F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\MainPage.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\PlaylistUserControl.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\SongUserControl.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\SongUserControl.baml
