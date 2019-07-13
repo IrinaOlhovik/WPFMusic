@@ -42,3 +42,5 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\App.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\PlaylistUserControl.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\SongUserControl.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\SongUserControl.baml
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\AlbumUserControl.g.cs
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\View\AlbumUserControl.baml

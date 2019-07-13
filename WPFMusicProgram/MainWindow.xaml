@@ -11,5 +11,6 @@
     <Grid>
         <views:PlaylistUserControl x:Name="playlistUserControl"/>
         <views:SongUserControl x:Name="songUserControl" Visibility="Hidden"/>
+        <views:AlbumUserControl x:Name="albumUserControl" Visibility="Hidden"/>
     </Grid>
 </Window>

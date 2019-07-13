@@ -12,8 +12,9 @@ namespace WPFMusicProgram
     {
         public static List<Album> Albums = new List<Album>();
         public static List<Artist> Artists = new List<Artist>();
+        public static ObservableCollection<Playlist> Playlists = new ObservableCollection<Playlist>();
         public static ObservableCollection<Track> Tracks = new ObservableCollection<Track>();
         public static ObservableCollection<Track> SelectedPlaylistTracks = new ObservableCollection<Track>();
-        public static ObservableCollection<Playlist> Playlists = new ObservableCollection<Playlist>();
+        public static ObservableCollection<Album> SelectedPlaylistAlbums = new ObservableCollection<Album>();
     }
 }

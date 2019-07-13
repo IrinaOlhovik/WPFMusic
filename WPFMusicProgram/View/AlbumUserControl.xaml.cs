@@ -18,29 +18,32 @@ using WPFMusicProgram.ViewModel;
 namespace WPFMusicProgram.View
 {
     /// <summary>
-    /// Interaction logic for SongUserControl.xaml
+    /// Interaction logic for AlbumUserControl.xaml
     /// </summary>
-    public partial class SongUserControl : UserControl
+    public partial class AlbumUserControl : UserControl
     {
-        private readonly SongViewModel model;
+        private readonly AlbumViewModel model;
         public MainWindow.ChangeUSEvent changeUS = null;
-        public SongUserControl()
+        public MainWindow.ChangeUSEventAlbum changeUSAlbum = null;
+        public AlbumUserControl()
         {
-            model = new SongViewModel();
+            model = new AlbumViewModel();
             this.DataContext = model;
             InitializeComponent();
         }
-        public void UpdateSongs()
+        public void UpdateAlbums()
         {
-            model.LoadSongs();
+            model.LoadAlbums();
         }
-        public int CountOfSongs()
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            return model.Tracks.Count;
+            Parse.UpdateSelectedAlbum((Album)ListBoxAlbums.SelectedItem);
+            changeUSAlbum?.Invoke(true);
         }
-        internal void SetChangeEvent(MainWindow.ChangeUSEvent changeUS)
+        internal void SetChangeEvent(MainWindow.ChangeUSEvent changeUS, MainWindow.ChangeUSEventAlbum changeUSAlbum)
         {
             this.changeUS = changeUS;
+            this.changeUSAlbum = changeUSAlbum;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -49,7 +52,7 @@ namespace WPFMusicProgram.View
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            foreach (var item in model.Tracks)
+            foreach (var item in model.Albums)
             {
                 item.IsSelected = true;
             }
@@ -57,7 +60,7 @@ namespace WPFMusicProgram.View
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            foreach (var item in model.Tracks)
+            foreach (var item in model.Albums)
             {
                 item.IsSelected = false;
             }

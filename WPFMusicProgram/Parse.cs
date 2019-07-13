@@ -9,6 +9,7 @@ using HtmlAgilityPack;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.IO;
 
 namespace WPFMusicProgram
 {
@@ -93,7 +94,7 @@ namespace WPFMusicProgram
                 string hrefAlbum = link.SelectSingleNode(@".//a[@class='card-click-target']").GetAttributeValue("href", "");
                 HtmlDocument htmlSnippset = GetHtmlDocument(rootUrl + hrefAlbum);
                 var htmlSongs = htmlSnippset.DocumentNode.SelectNodes(@"//tr[@class='KaLrad yZhPwb']");
-                
+
                 string artistName = htmlSnippset.DocumentNode.SelectSingleNode(@".//a[@class='hrTbp R8zArc']").InnerText;
                 artist = new Artist
                 {
@@ -117,7 +118,7 @@ namespace WPFMusicProgram
                     tempTracks.Add(track);
                     MainClassWithLists.Tracks.Add(track);
                 }
-                
+
                 if (htmlSongs.Count > 1)
                 {
                     string albummName = htmlSnippset.DocumentNode.SelectSingleNode(@".//h1[@class='AHFaub krcQId']").FirstChild.InnerText;
@@ -200,13 +201,34 @@ namespace WPFMusicProgram
                 list.Tracks.Add(track);
             }
         }
-        public static void AddSelectedPlaylistTracks(Playlist playlist)
+        public static void UpdateSelectedPlaylist(Playlist playlist)
         {
             MainClassWithLists.SelectedPlaylistTracks = new ObservableCollection<Track>();
-            foreach (var item in playlist.Tracks)
+            MainClassWithLists.SelectedPlaylistAlbums = new ObservableCollection<Album>();
+            try
             {
-                MainClassWithLists.SelectedPlaylistTracks.Add(item);
+                foreach (var item in playlist.Tracks)
+                {
+                    MainClassWithLists.SelectedPlaylistTracks.Add(item);
+                }
+                foreach (var item in playlist.Albums)
+                {
+                    MainClassWithLists.SelectedPlaylistAlbums.Add(item);
+                }
             }
+            catch { }
+        }
+        public static void UpdateSelectedAlbum(Album album)
+        {
+            MainClassWithLists.SelectedPlaylistTracks = new ObservableCollection<Track>();
+            try
+            {
+                foreach (var item in album.Tracks)
+                {
+                    MainClassWithLists.SelectedPlaylistTracks.Add(item);
+                }
+            }
+            catch { }
         }
         public static HtmlDocument GetHtmlDocument(string href)
         {

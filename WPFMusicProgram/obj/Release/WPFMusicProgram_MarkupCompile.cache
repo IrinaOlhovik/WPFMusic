@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Debug\
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\
 WPFMusicProgram
 none
 false
-DEBUG;TRACE
+TRACE
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\App.xaml
 4-146124687
 
-231265283111
+19-8449996
 27-1605639333
 MainWindow.xaml;View\AlbumUserControl.xaml;View\PlaylistUserControl.xaml;View\SongUserControl.xaml;
 

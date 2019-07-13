@@ -31,6 +31,13 @@ namespace WPFMusicProgram.Model
             get { return _tracks; }
             set { _tracks = value; RaisePropertyChanged("Tracks"); }
         }
+        public int Count
+        {
+            get
+            {
+                return (Tracks.Count > 0) ? Tracks.Count : Albums.Count;
+            }
+        }
         private List<Album> _albums;
         public List<Album> Albums
         {

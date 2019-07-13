@@ -39,7 +39,7 @@ namespace WPFMusicProgram.View
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Parse.AddSelectedPlaylistTracks((Playlist)ListBoxPlaylist.SelectedItem);
+            Parse.UpdateSelectedPlaylist((Playlist)ListBoxPlaylist.SelectedItem);
             changeUS?.Invoke(true);
         }
 

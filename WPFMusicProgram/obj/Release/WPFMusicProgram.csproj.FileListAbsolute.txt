@@ -23,7 +23,6 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Release\Prism.Unity.Wpf.p
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Release\Prism.Unity.Wpf.xml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Release\Prism.Wpf.pdb
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Release\Prism.Wpf.xml
-F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\MainPage.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\MainWindow.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\PlaylistUserControl.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\SongUserControl.g.cs
@@ -32,7 +31,6 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\GeneratedInternal
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram_MarkupCompile.cache
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram_MarkupCompile.lref
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\App.baml
-F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\MainPage.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\MainWindow.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\PlaylistUserControl.baml
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\SongUserControl.baml
@@ -44,3 +42,5 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.c
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.exe
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.pdb
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.csprojAssemblyReference.cache
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\AlbumUserControl.g.cs
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\AlbumUserControl.baml
