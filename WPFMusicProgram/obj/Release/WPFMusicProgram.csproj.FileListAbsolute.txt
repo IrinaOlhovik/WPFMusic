@@ -44,3 +44,5 @@ F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.p
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\WPFMusicProgram.csprojAssemblyReference.cache
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\AlbumUserControl.g.cs
 F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\obj\Release\View\AlbumUserControl.baml
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Release\FontAwesome.WPF.dll
+F:\Work\ParseMusic\WPFMusicProgram\WPFMusicProgram\bin\Release\FontAwesome.WPF.xml

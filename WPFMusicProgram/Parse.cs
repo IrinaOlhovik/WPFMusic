@@ -15,8 +15,8 @@ namespace WPFMusicProgram
 {
     public class Parse
     {
-        private static string rootUrl = @"https://play.google.com/";
-        private static string url = @"store/music";
+        private static string rootUrl = @"https://play.google.com";
+        private static string url = @"/store/music";
         //collection/cluster?clp=YhgKCHBsYXlsaXN0EAMaCgoIcGxheWxpc3Q%3D:S:ANO1ljJG2Xc&gsr=ChpiGAoIcGxheWxpc3QQAxoKCghwbGF5bGlzdA%3D%3D:S:ANO1ljLEfEM";
         public static string GetUrl(string address)
         {
@@ -39,13 +39,14 @@ namespace WPFMusicProgram
                     Playlist playlist = new Playlist()
                     {
                         Id = Guid.NewGuid().ToString(),
-                        Tracks = new List<Track>(),
-                        Albums = new List<Album>()
+                        Tracks = new ObservableCollection<Track>(),
+                        Albums = new ObservableCollection<Album>()
                     };
                     playlist.PlaylistName = link.SelectSingleNode(@".//h2[@class='sv0AUd bs3Xnd']").InnerText;
                     HtmlNode htmlNode = link.SelectSingleNode(@".//div[@class='xwY9Zc']").FirstChild;
                     string href = htmlNode.GetAttributeValue("href", "");
-                    ParseGoogleAlbums(ref playlist, href);
+                    playlist.Href = rootUrl + href;
+                    //ParseGoogleAlbums(ref playlist, href);
                     MainClassWithLists.Playlists.Add(playlist);
                 }
                 break;
@@ -103,21 +104,6 @@ namespace WPFMusicProgram
                 };
                 MainClassWithLists.Artists.Add(artist);
 
-                ObservableCollection<Track> tempTracks = new ObservableCollection<Track>();
-                foreach (HtmlNode song in htmlSongs)
-                {
-                    string trackName = song.SelectSingleNode(".//td[@class='sKniue WAjGKd']").InnerText;
-                    string trackDuration = song.SelectSingleNode(".//td[@class='KYddxf WAjGKd']").InnerText;
-                    track = new Track
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        ArtistId = artist.ArtistId,
-                        Duration = trackDuration,
-                        TrackName = trackName
-                    };
-                    tempTracks.Add(track);
-                    MainClassWithLists.Tracks.Add(track);
-                }
 
                 if (htmlSongs.Count > 1)
                 {
@@ -127,25 +113,48 @@ namespace WPFMusicProgram
                         AlbumId = Guid.NewGuid().ToString(),
                         ArtistId = artist.ArtistId,
                         AlbumName = albummName,
-                        Tracks = new ObservableCollection<Track>()
+                        Tracks = new ObservableCollection<Track>(),
+                        htmlSongs = htmlSongs
                     };
+                    //foreach (var item in tempTracks)
+                    //{
+                    //    item.AlbumId = album.AlbumId;
+                    //}
 
-                    foreach (var item in tempTracks)
-                    {
-                        item.AlbumId = album.AlbumId;
-                    }
-
-                    album.Tracks.AddRange(tempTracks);
+                    //album.Tracks.AddRange(tempTracks);
                     playlist.Albums.Add(album);
                     MainClassWithLists.Albums.Add(album);
                 }
                 else
                 {
+                    var tempTracks = ParseTracksGoogle(htmlSongs);
                     playlist.Tracks.AddRange(tempTracks);
                 }
             }
         }
-
+        public static ObservableCollection<Track> ParseTracksGoogle(HtmlNodeCollection htmlSongs)
+        {
+            ObservableCollection<Track> tempTracks = new ObservableCollection<Track>();
+            Track track;
+            foreach (HtmlNode song in htmlSongs)
+            {
+                string trackName = song.SelectSingleNode(".//td[@class='sKniue WAjGKd']").InnerText;
+                string trackDuration = song.SelectSingleNode(".//td[@class='KYddxf WAjGKd']").InnerText;
+                track = new Track
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Duration = trackDuration,
+                    TrackName = trackName
+                };
+                tempTracks.Add(track);
+                MainClassWithLists.Tracks.Add(track);
+            }
+            return tempTracks;
+        }
+        public static void ParseTracksGoogleForAlbum(ref Album album)
+        {
+            album.Tracks = ParseTracksGoogle(album.htmlSongs);
+        }
         public static void ParseGoogleSomePlaylists()
         {
             HtmlDocument htmlSnippet = new HtmlDocument();
@@ -160,7 +169,7 @@ namespace WPFMusicProgram
                     Playlist playlist = new Playlist()
                     {
                         Id = Guid.NewGuid().ToString(),
-                        Tracks = new List<Track>()
+                        Tracks = new ObservableCollection<Track>()
                     };
                     playlist.PlaylistName = link.SelectSingleNode(@".//div[@class='vU6FJ zC8lR']").InnerText;
                     HtmlNode htmlNode = link.SelectSingleNode(@".//a[@class='poRVub']");
@@ -201,32 +210,33 @@ namespace WPFMusicProgram
                 list.Tracks.Add(track);
             }
         }
-        public static void UpdateSelectedPlaylist(Playlist playlist)
+        public static void UpdateSelectedPlaylist(ref Playlist playlist)
         {
+            if (playlist.Albums.Count == 0 && playlist.Tracks.Count == 0)
+                ParseGoogleAlbums(ref playlist, playlist.Href);
             MainClassWithLists.SelectedPlaylistTracks = new ObservableCollection<Track>();
             MainClassWithLists.SelectedPlaylistAlbums = new ObservableCollection<Album>();
             try
             {
-                foreach (var item in playlist.Tracks)
+                if (playlist.Tracks.Count != 0)
                 {
-                    MainClassWithLists.SelectedPlaylistTracks.Add(item);
+                    MainClassWithLists.SelectedPlaylistTracks = playlist.Tracks;
                 }
-                foreach (var item in playlist.Albums)
+                if (playlist.Albums.Count != 0)
                 {
-                    MainClassWithLists.SelectedPlaylistAlbums.Add(item);
+                    MainClassWithLists.SelectedPlaylistAlbums = playlist.Albums;
                 }
             }
             catch { }
         }
-        public static void UpdateSelectedAlbum(Album album)
+        public static void UpdateSelectedAlbum(ref Album album)
         {
+            if (album.Tracks.Count == 0)
+                ParseTracksGoogleForAlbum(ref album);
             MainClassWithLists.SelectedPlaylistTracks = new ObservableCollection<Track>();
             try
             {
-                foreach (var item in album.Tracks)
-                {
-                    MainClassWithLists.SelectedPlaylistTracks.Add(item);
-                }
+                MainClassWithLists.SelectedPlaylistTracks = album.Tracks;
             }
             catch { }
         }

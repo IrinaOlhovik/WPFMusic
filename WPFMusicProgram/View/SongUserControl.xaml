@@ -32,8 +32,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="SongName" />
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="Id" />
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Id" />
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="SongName" />
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Duration" HorizontalAlignment="Left"/>
             <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Tracks}" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

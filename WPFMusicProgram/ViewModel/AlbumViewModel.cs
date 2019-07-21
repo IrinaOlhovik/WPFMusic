@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WPFMusicProgram.Model;
 
 namespace WPFMusicProgram.ViewModel
@@ -18,7 +19,13 @@ namespace WPFMusicProgram.ViewModel
             get { return _albums; }
             set { _albums = value; RaisePropertyChanged("Albums"); }
         }
+        private Visibility _spinningModalVisibility;
 
+        public Visibility SpinningModalVisibility
+        {
+            get { return _spinningModalVisibility; }
+            set { _spinningModalVisibility = value; RaisePropertyChanged("SpinningModalVisibility"); }
+        }
         public AlbumViewModel()
         {
             LoadAlbums();

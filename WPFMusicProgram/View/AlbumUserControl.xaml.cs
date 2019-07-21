@@ -28,6 +28,7 @@ namespace WPFMusicProgram.View
         public AlbumUserControl()
         {
             model = new AlbumViewModel();
+            model.SpinningModalVisibility = Visibility.Hidden;
             this.DataContext = model;
             InitializeComponent();
         }
@@ -37,8 +38,7 @@ namespace WPFMusicProgram.View
         }
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Parse.UpdateSelectedAlbum((Album)ListBoxAlbums.SelectedItem);
-            changeUSAlbum?.Invoke(true);
+           
         }
         internal void SetChangeEvent(MainWindow.ChangeUSEvent changeUS, MainWindow.ChangeUSEventAlbum changeUSAlbum)
         {
@@ -64,6 +64,22 @@ namespace WPFMusicProgram.View
             {
                 item.IsSelected = false;
             }
+        }
+
+        private void ListBoxAlbums_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Album album = (Album)ListBoxAlbums.SelectedItem;
+
+            model.SpinningModalVisibility = Visibility.Visible;
+            Task.Factory.StartNew(() =>
+            {
+                Parse.UpdateSelectedAlbum(ref album);
+            }).ContinueWith(Task =>
+            {
+                model.SpinningModalVisibility = Visibility.Hidden;
+                changeUSAlbum?.Invoke(true);
+            }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+            
         }
     }
 }

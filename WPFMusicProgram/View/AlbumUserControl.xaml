@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFMusicProgram.View"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -19,6 +20,9 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <CheckBox IsThreeState="False" Grid.Row="0" Content="SELECT ALL" Margin="20,0,0,0" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        <Grid Visibility="{Binding SpinningModalVisibility}" Grid.Row="0" Margin="0,0,558,5" HorizontalAlignment="Right" Width="242">
+            <fa:ImageAwesome Name="RefreshCircle" Icon="Spinner" Spin="True" Height="20" Width="20" Margin="0,0,20,16" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        </Grid>
         <Button Content="Return to Playlists" HorizontalAlignment="Left" Margin="665,10,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -33,7 +37,7 @@
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="AlbumName" />
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Id" />
-            <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Albums}" SelectionChanged="ListBox_SelectionChanged" Name="ListBoxAlbums" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Albums}" SelectionChanged="ListBox_SelectionChanged" Name="ListBoxAlbums" MouseDoubleClick="ListBoxAlbums_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>

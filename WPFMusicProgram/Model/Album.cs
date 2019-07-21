@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace WPFMusicProgram.Model
         public string AlbumName { get; set; }
         public string ArtistId { get; set; }
         public ObservableCollection<Track> Tracks{ get; set; }
+        public HtmlNodeCollection htmlSongs { get; set; }
     }
 }

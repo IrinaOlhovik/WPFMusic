@@ -5,14 +5,23 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Prism.Mvvm;
 using WPFMusicProgram.Model;
 
 namespace WPFMusicProgram.ViewModel
 {
-    public class PlaylistViewModel
+    public class PlaylistViewModel : BindableBase
     {
         public ObservableCollection<Playlist> Playlists{ get; set; }
+        private Visibility _spinningModalVisibility;
+
+        public Visibility SpinningModalVisibility
+        {
+            get { return _spinningModalVisibility; }
+            set { _spinningModalVisibility = value; RaisePropertyChanged("SpinningModalVisibility"); }
+        }
+        
 
         public PlaylistViewModel()
         {
